@@ -7,10 +7,10 @@ class UserDetails {
   final String username;
   final String email;
   final String profileUrl;
-  final String bio;
+  final DateTime lastseen;
 
   UserDetails({
-    required this.bio,
+    required this.lastseen,
     required this.uid,
     required this.username,
     required this.email,
@@ -21,14 +21,14 @@ class UserDetails {
         'uid': uid,
         'username': username,
         'email': email,
-        'bio': '',
+        'lastseen': lastseen,
         'profileUrl': profileUrl,
       };
 
   static UserDetails fromSnapshot(DocumentSnapshot documentSnapshot) {
     var snapshot = documentSnapshot.data() as Map<String, dynamic>;
     return UserDetails(
-      bio: snapshot['bio'] ?? "",
+      lastseen: snapshot['lastseen'] ?? "",
       uid: snapshot['uid'],
       username: snapshot['username'],
       email: snapshot['email'],

@@ -36,9 +36,13 @@ class AuthSignUp {
         String profileUrl = await StorageMethods()
             .uploadImageToStorage('profilepic', profilepic!, false);
         //adding user to database
+        if (profileUrl == '') {
+          profileUrl =
+              "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg";
+        }
         print('2');
         UserDetails userDetails = UserDetails(
-          bio: '',
+          lastseen: DateTime.now(),
           uid: cred.user!.uid,
           username: username,
           email: email,

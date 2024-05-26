@@ -110,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: _isloading
                     ? const Center(
                         child: CupertinoActivityIndicator(
+                          radius: 12,
                           color: primaryColor,
                         ),
                       )
