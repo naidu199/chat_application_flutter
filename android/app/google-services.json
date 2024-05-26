@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "150180241306",
+    "project_id": "chat-application-naidu199",
+    "storage_bucket": "chat-application-naidu199.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150180241306:android:b7a957ebf13dd866f9a423",
+        "android_client_info": {
+          "package_name": "com.example.chat_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvhejdh_mcW38xjF7yvk2pyPtnk_cWLRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
