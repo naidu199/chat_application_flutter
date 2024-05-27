@@ -5,7 +5,11 @@ class FireBaseMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Future<void> createNewChat() async {
     String chatId = DateTime.now().millisecondsSinceEpoch.toString();
-    Map<String, dynamic> chatData = {"chatId": chatId, "messages": []};
+    Map<String, dynamic> chatData = {
+      "chatId": chatId,
+      "messages": [],
+      "lastmsg": []
+    };
   }
 
   Future<void> addTextMessages(
