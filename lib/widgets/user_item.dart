@@ -1,5 +1,9 @@
+import 'package:chat_application/backend/provider/firebase_provider.dart';
 import 'package:chat_application/models/user.dart';
+import 'package:chat_application/screens/chats/user_chat_screen.dart';
+import 'package:chat_application/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class UserItem extends StatelessWidget {
@@ -11,13 +15,30 @@ class UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        radius: 30,
-        backgroundImage: NetworkImage(userDetails.profileUrl),
+    UserDetails user = Provider.of<FirebaseProvider>(context).getcurrentUser;
+    return InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => UserChatScreen(
+            userDetails: userDetails,
+            currentUser: user,
+          ),
+        ),
       ),
-      title: Text(userDetails.uid),
-      subtitle: Text("lastseen ${timeago.format(userDetails.lastseen)}"),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundImage: NetworkImage(userDetails.profileUrl),
+        ),
+        title: Text(
+          userDetails.name,
+          style: const TextStyle(color: primaryColor),
+        ),
+        subtitle: Text(
+          "lastseen ${timeago.format(userDetails.lastseen)}",
+          style: const TextStyle(color: primaryColor),
+        ),
+      ),
     );
   }
 }

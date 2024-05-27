@@ -1,4 +1,5 @@
 import 'package:chat_application/backend/auth/auth_login.dart';
+import 'package:chat_application/responsive/responsive.dart';
 import 'package:chat_application/routs/approuts.dart';
 import 'package:chat_application/utils/colors.dart';
 import 'package:chat_application/utils/consts.dart';
@@ -21,34 +22,41 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    super.dispose();
   }
 
   void loginUser() async {
     setState(() {
       _isloading = true;
     });
-    String response = await AuthLogin().login(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim());
-    if (response != "success") {
-      // print(response);
-      toastMessage(context, response);
-    }
 
-    setState(() {
-      _isloading = false;
-    });
-    if (response == 'success') {
-      // Navigator.of(context).pushReplacement(MaterialPageRoute(
-      //   builder: (context) => const ResponsiveLayout(
-      //     webScreenLayout: WebScreenLayout(),
-      //     mobileScreenLayout: MobileScreenLayout(),
-      //   ),
-      // ));
-      toastMessage(context, response);
+    try {
+      String response = await AuthLogin().login(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+
+      if (!mounted) return; // Ensure the widget is still in the tree
+
+      if (response != "success") {
+        toastMessage(context, response);
+      }
+
+      setState(() {
+        _isloading = false;
+      });
+
+      if (response == 'success') {
+        Navigator.of(context).pushNamed(AppRoutes.chatsScreenRoute);
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isloading = false;
+        });
+      }
+      toastMessage(context, "An error occurred: $e");
     }
   }
 
@@ -70,12 +78,6 @@ class _LoginScreenState extends State<LoginScreen> {
               flex: 2,
               child: Container(),
             ),
-            // SvgPicture.asset(
-            //   'assets/ic_instagram.svg',
-            //   // ignore: deprecated_member_use
-            //   color: primaryColor,
-            //   height: 64,
-            // ),
             const SizedBox(
               height: 30,
             ),
@@ -123,10 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 12,
             ),
-            // Flexible(
-            //   flex: 1,
-            //   child: Container(),
-            // ),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

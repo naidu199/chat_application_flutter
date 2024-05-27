@@ -1,6 +1,7 @@
 import 'package:chat_application/backend/provider/firebase_provider.dart';
 import 'package:chat_application/responsive/mobile_screen_layout.dart';
 import 'package:chat_application/responsive/web_screen_layout.dart';
+import 'package:chat_application/screens/chats_screen.dart';
 import 'package:chat_application/utils/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
             if (constraints.maxWidth > webscreensize) {
               return const WebScreenLayout();
             } else {
-              return const MobileScreenLayout();
+              return const ChatsScreen();
             }
           });
   }

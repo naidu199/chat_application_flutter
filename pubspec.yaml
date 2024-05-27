@@ -49,6 +49,7 @@ dependencies:
 
   timeago: ^3.6.1
   provider: ^6.1.2
+  dash_chat_2: ^0.0.20
 
 dev_dependencies:
   flutter_test:

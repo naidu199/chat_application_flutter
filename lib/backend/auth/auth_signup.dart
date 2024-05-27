@@ -21,7 +21,7 @@ class AuthSignUp {
     required String email,
     required String password,
     required String username,
-    required String bio,
+    required String name,
     Uint8List? profilepic,
   }) async {
     String res = "some error occured";
@@ -32,16 +32,21 @@ class AuthSignUp {
           email: email,
           password: password,
         );
-        print('1');
-        String profileUrl = await StorageMethods()
-            .uploadImageToStorage('profilepic', profilepic!, false);
-        //adding user to database
-        if (profileUrl == '') {
+        // print('1');
+        String profileUrl;
+        if (profilepic != null) {
+          profileUrl = await StorageMethods()
+              .uploadImageToStorage('profilepic', profilepic, false);
+        } else {
           profileUrl =
               "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg";
         }
-        print('2');
+
+        //adding user to database
+
+        // print('2');
         UserDetails userDetails = UserDetails(
+          name: name,
           lastseen: DateTime.now(),
           uid: cred.user!.uid,
           username: username,
@@ -68,7 +73,7 @@ class AuthSignUp {
       }
     } catch (e) {
       res = e.toString();
-      print(e.toString());
+      // print(e.toString());
     }
     return res;
   }

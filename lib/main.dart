@@ -3,6 +3,7 @@ import 'package:chat_application/firebase_options.dart';
 import 'package:chat_application/responsive/responsive.dart';
 import 'package:chat_application/routs/approuts.dart';
 import 'package:chat_application/screens/auth/loginscreen.dart';
+import 'package:chat_application/screens/chats_screen.dart';
 import 'package:chat_application/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,7 +42,7 @@ class ChatApp extends StatelessWidget {
                 return toastMessage(context, "reload the app");
               }
               if (snapshot.hasData) {
-                return const ResponsiveLayout();
+                return const ChatsScreen();
               }
               return const LoginScreen();
             }),

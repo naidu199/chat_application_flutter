@@ -21,8 +21,9 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController biocontroller = TextEditingController();
+  // final TextEditingController biocontroller = TextEditingController();
   final TextEditingController usernamecontroller = TextEditingController();
+  final TextEditingController namecontroller = TextEditingController();
   Uint8List? profileImage;
   bool _islaoding = false;
 
@@ -31,8 +32,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
-    biocontroller.dispose();
+    // biocontroller.dispose();
     usernamecontroller.dispose();
+    namecontroller.dispose();
   }
 
   void selectImage() async {
@@ -50,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
         username: usernamecontroller.text.trim(),
-        bio: biocontroller.text.trim(),
+        name: namecontroller.text.trim(),
         profilepic: profileImage);
     // print(res);
     if (response != "success") {
@@ -70,25 +72,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: mobileBackgroundColor,
       body: SafeArea(
-          child: Container(
-        padding: MediaQuery.of(context).size.width > webscreensize
-            ? EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 3)
-            : const EdgeInsets.symmetric(horizontal: 20),
-        width: double.infinity,
-        child: Stack(
-          children: [
-            Column(
+        child: Container(
+          padding: MediaQuery.of(context).size.width > webscreensize
+              ? EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 3)
+              : const EdgeInsets.symmetric(horizontal: 20),
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flexible(
-                  flex: 1,
-                  child: Container(),
-                ),
-
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 100),
                 Stack(
                   children: [
                     profileImage != null
@@ -102,57 +97,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"),
                           ),
                     Positioned(
-                        bottom: -1,
-                        right: -10,
-                        child: IconButton(
-                          onPressed: () {
-                            selectImage();
-                          },
-                          icon: const Icon(
-                            Icons.add_a_photo,
-                            size: 26,
-                          ),
-                        ))
+                      bottom: -1,
+                      right: -10,
+                      child: IconButton(
+                        onPressed: selectImage,
+                        icon: const Icon(
+                          Icons.add_a_photo,
+                          size: 26,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 TextFieldInput(
                   hintText: 'Username',
                   textEditingController: usernamecontroller,
                   textInputType: TextInputType.text,
                   isPassword: false,
                 ),
-                const SizedBox(
-                  height: 12,
+                const SizedBox(height: 12),
+                TextFieldInput(
+                  hintText: 'Name',
+                  textEditingController: namecontroller,
+                  textInputType: TextInputType.text,
                 ),
+                const SizedBox(height: 12),
                 TextFieldInput(
                   hintText: 'Email or Phone Number',
                   textEditingController: emailController,
                   textInputType: TextInputType.emailAddress,
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
+                const SizedBox(height: 12),
                 TextFieldInput(
                   hintText: 'Password',
                   textEditingController: passwordController,
                   isPassword: true,
                   textInputType: TextInputType.text,
                 ),
-                // const SizedBox(
-                //   height: 12,
-                // ),
-                // TextFieldInput(
-                //   hintText: 'Enter Bio',
-                //   textEditingController: biocontroller,
-                //   isPassword: false,
-                //   textInputType: TextInputType.text,
-                // ),
-                const SizedBox(
-                  height: 18,
-                ),
+                const SizedBox(height: 18),
                 InkWell(
                   onTap: signupUser,
                   child: Container(
@@ -161,7 +144,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: const ShapeDecoration(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                      ),
                       color: blueColor,
                     ),
                     child: _islaoding
@@ -177,18 +161,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                   ),
                 ),
-
-                // const SizedBox(
-                //   height: 24,
-                // ),
-                const Spacer(),
+                const SizedBox(height: 30),
                 Container(
                   margin: const EdgeInsets.all(8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Alraedy have an account?  ",
+                        "Already have an account?  ",
                         style: TextStyle(color: primaryColor),
                       ),
                       InkWell(
@@ -196,26 +176,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Navigator.of(context).pushNamed(AppRoutes.loginRoute);
                         },
                         child: const Text(
-                          "login",
+                          "Login",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: primaryColor,
                             fontSize: 16,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
-                const Spacer(),
-                // SizedBox(
-                //   height: 10,
-                // )
               ],
             ),
-          ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
