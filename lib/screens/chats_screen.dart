@@ -25,30 +25,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<FirebaseProvider>(builder: (context, data, _) {
-      if (data.isLoading) {
-        return Scaffold(
-          backgroundColor: mobileBackgroundColor,
-          appBar: _chatsAppBar(context, data),
-          body: const Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      }
-
-      if (data.getUsers.isEmpty) {
-        return Scaffold(
-          backgroundColor: mobileBackgroundColor,
-          appBar: _chatsAppBar(context, data),
-          body: const Center(
-            child: Text(
-              "No users found.",
-              style: TextStyle(color: primaryColor),
-            ),
-          ),
-        );
-      }
-
-      List<UserDetails> users = data.getUsers;
       return Scaffold(
           backgroundColor: mobileBackgroundColor,
           appBar: _chatsAppBar(context, data),
@@ -63,16 +39,32 @@ class _ChatsScreenState extends State<ChatsScreen> {
                 size: 32,
                 color: primaryColor,
               )),
-          body: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: users.length,
-            itemBuilder: (context, index) {
-              return UserItem(
-                userDetails: users[index],
-              );
-            },
-          ));
+          body: data.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : data.getUsers.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "No users found.",
+                        style: TextStyle(color: primaryColor),
+                      ),
+                    )
+                  : _allUserBody(context, data));
     });
+  }
+
+  Widget _allUserBody(context, FirebaseProvider data) {
+    List<UserDetails> users = data.getUsers;
+    return ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: users.length,
+        itemBuilder: ((context, index) {
+          UserDetails userDetails = users[index];
+          return UserItem(
+            userDetails: userDetails,
+          );
+        }));
   }
 
   AppBar _chatsAppBar(BuildContext context, FirebaseProvider data) {
@@ -85,26 +77,29 @@ class _ChatsScreenState extends State<ChatsScreen> {
       ),
       centerTitle: false,
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(40),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          height: 40,
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: 'Search...',
-              hintStyle:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              prefixIcon: const Icon(
-                Icons.search,
-                color: mobileBackgroundColor,
+        preferredSize: const Size.fromHeight(50),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            height: 40,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                hintStyle:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: mobileBackgroundColor,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Colors.white70,
+                contentPadding: const EdgeInsets.only(top: 12.0),
               ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: Colors.white70,
-              contentPadding: const EdgeInsets.only(top: 12.0),
             ),
           ),
         ),
