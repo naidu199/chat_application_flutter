@@ -36,7 +36,7 @@ class AuthSignUp {
         String profileUrl;
         if (profilepic != null) {
           profileUrl = await StorageMethods()
-              .uploadImageToStorage('profilepic', profilepic, false);
+              .uploadImageToStorage(childName: 'profilepic', file: profilepic);
         } else {
           profileUrl =
               "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg";

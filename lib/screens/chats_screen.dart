@@ -36,7 +36,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         );
       }
 
-      if (data.getUsers == null || data.getUsers!.isEmpty) {
+      if (data.getUsers.isEmpty) {
         return Scaffold(
           backgroundColor: mobileBackgroundColor,
           appBar: AppBar(
@@ -49,7 +49,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         );
       }
 
-      List<UserDetails> users = data.getUsers!;
+      List<UserDetails> users = data.getUsers;
       return Scaffold(
           backgroundColor: mobileBackgroundColor,
           appBar: AppBar(
