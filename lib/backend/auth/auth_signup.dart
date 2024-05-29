@@ -51,6 +51,7 @@ class AuthSignUp {
           uid: cred.user!.uid,
           username: username,
           email: email,
+          chats: [],
           profileUrl: profileUrl,
         );
         await firestore

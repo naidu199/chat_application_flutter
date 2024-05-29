@@ -9,6 +9,7 @@ class UserDetails {
   final String email;
   final String profileUrl;
   final DateTime lastseen;
+  final List chats;
 
   UserDetails({
     required this.lastseen,
@@ -17,6 +18,7 @@ class UserDetails {
     required this.name,
     required this.email,
     required this.profileUrl,
+    required this.chats,
   });
 
   Map<String, dynamic> toJson() => {
@@ -25,6 +27,7 @@ class UserDetails {
         'email': email,
         'lastseen': lastseen,
         'name': name,
+        'chats': chats,
         'profileUrl': profileUrl,
       };
 
@@ -36,6 +39,7 @@ class UserDetails {
       username: snapshot['username'],
       email: snapshot['email'],
       name: snapshot['name'],
+      chats: snapshot['chats'],
       profileUrl: snapshot['profileUrl'] ?? "",
     );
   }
