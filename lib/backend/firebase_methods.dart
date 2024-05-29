@@ -4,9 +4,11 @@ import 'package:chat_application/backend/storage_methods.dart';
 import 'package:chat_application/models/message.dart';
 import 'package:chat_application/models/p2pchat.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FireBaseMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   String generateChatId(String senderId, String receiverId) {
     List uids = [senderId, receiverId];
     uids.sort();
@@ -31,6 +33,12 @@ class FireBaseMethods {
         messages: [],
       );
       await _firestore.collection('chats').doc(chatId).set(chat.toJson());
+      await _firestore.collection('Users').doc(senderId).update({
+        'chatIds': FieldValue.arrayUnion([receiverId]),
+      });
+      await _firestore.collection('Users').doc(receiverId).update({
+        'chatIds': FieldValue.arrayUnion([senderId]),
+      });
     } catch (e) {
       print(e.toString());
     }
