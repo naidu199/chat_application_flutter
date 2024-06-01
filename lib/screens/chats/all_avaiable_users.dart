@@ -39,7 +39,7 @@ class _AllAvailbleUsersState extends State<AllAvailbleUsers> {
   @override
   Widget build(BuildContext context) {
     return Consumer<FirebaseProvider>(builder: (context, value, _) {
-      print(value.isLoading);
+      // print(value.isLoading);
       return Scaffold(
         backgroundColor: mobileBackgroundColor,
         appBar: AppBar(
@@ -52,25 +52,26 @@ class _AllAvailbleUsersState extends State<AllAvailbleUsers> {
           ),
           backgroundColor: mobileBackgroundColor,
           title: SizedBox(
-            height: 40,
+            height: 46,
             child: TextField(
               onChanged: _onSearchChanged,
-              controller: searchController,
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.w500),
               decoration: InputDecoration(
                 hintText: 'Search...',
                 hintStyle:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 prefixIcon: const Icon(
                   Icons.search,
-                  color: mobileBackgroundColor,
+                  color: primaryColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Colors.white70,
-                contentPadding: const EdgeInsets.only(top: 12.0),
+                fillColor: const Color.fromARGB(255, 187, 245, 224),
+                contentPadding: const EdgeInsets.only(top: 8.0),
               ),
             ),
           ),

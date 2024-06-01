@@ -1,16 +1,18 @@
 import 'package:chat_application/utils/consts.dart';
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
+import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 
 toastMessage(BuildContext context, String message) {
-  final double width = MediaQuery.of(context).size.width;
+  // final double width = MediaQuery.of(context).size.width;
   late DelightToastBar? toastBar;
   toastBar = DelightToastBar(
+    position: DelightSnackbarPosition.top,
     autoDismiss: true,
     builder: (context) => Container(
-      margin:
-          EdgeInsets.symmetric(horizontal: width > webscreensize ? 200 : width),
+      // margin:
+      //     EdgeInsets.symmetric(horizontal: width > webscreensize ? 200 : width),
       width: 400,
       child: ToastCard(
         trailing: IconButton(

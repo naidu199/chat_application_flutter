@@ -43,7 +43,8 @@ class UserItem extends StatelessWidget {
         ),
         title: Text(
           userDetails.name,
-          style: const TextStyle(color: primaryColor),
+          style:
+              const TextStyle(color: primaryColor, fontWeight: FontWeight.w700),
         ),
         subtitle: Text(
           "lastseen ${timeago.format(userDetails.lastseen)}",

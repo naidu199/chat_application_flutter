@@ -83,7 +83,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 100),
+                const SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: Image.asset('assets/chatting.png'),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Text(
+                      'Linkup',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 31, 218, 149),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
                 Stack(
                   children: [
                     profileImage != null
@@ -141,7 +164,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Container(
                     width: double.infinity,
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: const ShapeDecoration(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -156,8 +179,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           )
                         : const Text(
-                            "SignUp",
-                            style: TextStyle(color: primaryColor),
+                            "Signup",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: primaryColor),
                           ),
                   ),
                 ),

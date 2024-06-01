@@ -77,6 +77,28 @@ class _LoginScreenState extends State<LoginScreen> {
               flex: 2,
               child: Container(),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: Image.asset('assets/chatting.png'),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                const Text(
+                  'Linkup',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 31, 218, 149),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 30,
             ),
@@ -117,7 +139,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                     : const Text(
                         "Login",
-                        style: TextStyle(color: primaryColor, fontSize: 18),
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: primaryColor),
                       ),
               ),
             ),

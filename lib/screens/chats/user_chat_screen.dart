@@ -11,6 +11,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:intl/intl.dart';
 
 class UserChatScreen extends StatefulWidget {
   final UserDetails userDetails;
@@ -184,12 +185,64 @@ class _UserChatScreenState extends State<UserChatScreen> {
             messages.sort((a, b) => b.createdAt.compareTo(a.createdAt));
           }
           return DashChat(
-            messageOptions: const MessageOptions(
+            messageOptions: MessageOptions(
+              currentUserContainerColor: Color.fromARGB(255, 160, 243, 213),
+              currentUserTextColor: primaryColor,
               showOtherUsersAvatar: true,
               showTime: true,
+              timePadding: EdgeInsets.only(top: 4),
+              containerColor: Color.fromARGB(255, 162, 218, 244),
+              messageTextBuilder: (ChatMessage message,
+                  ChatMessage? previousMessage, ChatMessage? nextMessage) {
+                return Column(
+                  children: [
+                    Text(
+                      message.text,
+                      style: const TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.w400),
+                    ),
+                    Text(
+                      DateFormat('hh:mm a').format(message.createdAt),
+                      style: const TextStyle(
+                        fontSize:
+                            12.0, // Set your desired font size for the time here
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                );
+              },
+              // messageTimeBuilder: (ChatMessage message, bool showTime) {
+              //   return Text(
+              //     DateFormat('hh:mm a').format(message.createdAt),
+              //     style: TextStyle(
+              //       fontSize:
+              //           10.0, // Set your desired font size for the time here
+              //       color: Colors.grey,
+              //     ),
+              //   );
+              // },
             ),
             inputOptions: InputOptions(
-                alwaysShowSend: true, trailing: [_mediaPickButton(context)]),
+              // alwaysShowSend: true,
+              inputTextStyle: const TextStyle(color: primaryColor),
+              inputDecoration: InputDecoration(
+                hintText: 'Type your message here...',
+                hintStyle: const TextStyle(color: Colors.black87),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide:
+                      const BorderSide(color: Colors.black45, width: 2.0),
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+              ),
+              trailing: [_mediaPickButton(context)],
+            ),
             currentUser: currentChatUser!,
             onSend: sendMessage,
             messages: messages,
@@ -200,40 +253,12 @@ class _UserChatScreenState extends State<UserChatScreen> {
   Widget _mediaPickButton(BuildContext context) {
     return IconButton(
       onPressed: () => _selectImage(context),
-      icon: const Icon(Icons.image),
+      icon: const Icon(
+        Icons.image,
+        color: Colors.deepPurpleAccent,
+      ),
     );
   }
-  // Widget _mediaPickButton(BuildContext context) {
-  //   return IconButton(
-  //       onPressed: () async {
-  //         _selectImage(context);
-  //         String imageUrl = '';
-  //         print('pickedImage');
-  //         if (pickedImage != null) {
-  //           print('storage');
-  //           imageUrl = await FireBaseMethods()
-  //               .mediaUrl(currentChatUser!.id, otherChatUser!.id, pickedImage!);
-  //         }
-  //         if (imageUrl != '') {
-  //           print(imageUrl);
-  //           ChatMessage chatMessage = ChatMessage(
-  //               user: currentChatUser!,
-  //               createdAt: DateTime.now(),
-  //               medias: [
-  //                 ChatMedia(url: imageUrl, fileName: '', type: MediaType.image)
-  //               ]);
-  //           print('sendmessage');
-  //           await sendMessage(chatMessage);
-  //         }
-
-  //         // setState(() {
-  //         //   pickedImage = null;
-  //         // });
-  //       },
-  //       icon: const Icon(
-  //         Icons.image,
-  //       ));
-  // }
 
   AppBar _userAppBar() {
     return AppBar(
@@ -263,7 +288,7 @@ class _UserChatScreenState extends State<UserChatScreen> {
               Text(
                 "last seen ${timeago.format(widget.userDetails.lastseen)}",
                 style: const TextStyle(
-                    color: secondaryColor,
+                    color: primaryColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 14),
               ),

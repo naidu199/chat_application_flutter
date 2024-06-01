@@ -2,6 +2,7 @@ import 'package:chat_application/backend/provider/firebase_provider.dart';
 import 'package:chat_application/models/user.dart';
 import 'package:chat_application/routs/approuts.dart';
 import 'package:chat_application/utils/colors.dart';
+import 'package:chat_application/widgets/new_user_item.dart';
 import 'package:chat_application/widgets/search_users.dart';
 import 'package:chat_application/widgets/user_item.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   void initState() {
+    Provider.of<FirebaseProvider>(context, listen: false).getAllUsers();
     Provider.of<FirebaseProvider>(context, listen: false)
-      ..getAllUsers()
-      ..getUser();
+      ..getUser()
+      ..getAllUserAvailable();
     super.initState();
   }
 
@@ -47,7 +49,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           backgroundColor: mobileBackgroundColor,
           appBar: _chatsAppBar(context, data),
           floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.blue,
+              backgroundColor: Color.fromARGB(255, 110, 245, 196),
               onPressed: () {
                 Navigator.of(context)
                     .pushNamed(AppRoutes.allAvailableUsersRoute);
@@ -62,14 +64,52 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   child: CircularProgressIndicator(),
                 )
               : data.getUsers!.isEmpty
-                  ? const Center(
-                      child: Text(
-                        "No users found.",
-                        style: TextStyle(color: primaryColor),
-                      ),
-                    )
+                  ? _noUserFound(context, data) // if no user found
                   : _allUserBody(context, data));
     });
+  }
+
+  Widget _noUserFound(constext, FirebaseProvider value) {
+    List<UserDetails> allUserDetails = value.getAvailableUsers!;
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          const Center(
+            child: Text(
+              "No users found.",
+              style: TextStyle(color: primaryColor, fontSize: 20),
+            ),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          const Text(
+            "Select User",
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w500, color: primaryColor),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: allUserDetails.length,
+            itemBuilder: ((context, index) {
+              UserDetails userDetails = allUserDetails[index];
+              return NewUserItem(
+                userDetails: userDetails,
+              );
+            }),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _allUserBody(context, FirebaseProvider data) {
@@ -97,29 +137,31 @@ class _ChatsScreenState extends State<ChatsScreen> {
       ),
       centerTitle: false,
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(60),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            height: 40,
+            height: 46,
             child: TextField(
               onChanged: _onSearchChanged,
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.w500),
               decoration: InputDecoration(
                 hintText: 'Search...',
                 hintStyle:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 prefixIcon: const Icon(
                   Icons.search,
-                  color: mobileBackgroundColor,
+                  color: primaryColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Colors.white70,
-                contentPadding: const EdgeInsets.only(top: 12.0),
+                fillColor: const Color.fromARGB(255, 187, 245, 224),
+                contentPadding: const EdgeInsets.only(top: 8.0),
               ),
             ),
           ),

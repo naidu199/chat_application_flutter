@@ -3,6 +3,7 @@ import 'package:chat_application/firebase_options.dart';
 import 'package:chat_application/routs/approuts.dart';
 import 'package:chat_application/screens/auth/loginscreen.dart';
 import 'package:chat_application/screens/chats_screen.dart';
+import 'package:chat_application/screens/onboarding_screen.dart';
 import 'package:chat_application/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,20 +32,21 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
-              if (snapshot.hasError) {
-                return toastMessage(context, "reload the app");
-              }
-              if (snapshot.hasData) {
-                return const ChatsScreen();
-              }
-              return const LoginScreen();
-            }),
+        home: const OnBoardingScreen(),
+        // home: StreamBuilder(
+        //     stream: FirebaseAuth.instance.authStateChanges(),
+        //     builder: (context, snapshot) {
+        //       if (snapshot.connectionState == ConnectionState.waiting) {
+        //         return const CircularProgressIndicator();
+        //       }
+        //       if (snapshot.hasError) {
+        //         return toastMessage(context, "reload the app");
+        //       }
+        //       if (snapshot.hasData) {
+        //         return const ChatsScreen();
+        //       }
+        //       return const LoginScreen();
+        //     }),
       ),
     );
   }

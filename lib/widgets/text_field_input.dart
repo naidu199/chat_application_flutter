@@ -25,7 +25,7 @@ class _TextFieldInputState extends State<TextFieldInput> {
     //     OutlineInputBorder(borderSide: Divider.createBorderSide(context));
     return TextField(
       controller: widget.textEditingController,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
           labelText: widget.hintText,
           labelStyle:
