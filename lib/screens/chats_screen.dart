@@ -2,6 +2,7 @@ import 'package:chat_application/backend/provider/firebase_provider.dart';
 import 'package:chat_application/models/user.dart';
 import 'package:chat_application/routs/approuts.dart';
 import 'package:chat_application/utils/colors.dart';
+import 'package:chat_application/widgets/search_users.dart';
 import 'package:chat_application/widgets/user_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +15,29 @@ class ChatsScreen extends StatefulWidget {
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
+  TextEditingController searchController = TextEditingController();
+  bool isSearch = false;
+  String searchText = '';
+
   @override
   void initState() {
     Provider.of<FirebaseProvider>(context, listen: false)
       ..getAllUsers()
       ..getUser();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged(String query) {
+    setState(() {
+      searchText = query;
+      isSearch = query.isNotEmpty;
+    });
   }
 
   @override
@@ -39,11 +57,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
                 size: 32,
                 color: primaryColor,
               )),
-          body: data.isLoading
+          body: data.isLoading || data.getCurrentUser == null
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : data.getUsers.isEmpty
+              : data.getUsers!.isEmpty
                   ? const Center(
                       child: Text(
                         "No users found.",
@@ -55,16 +73,18 @@ class _ChatsScreenState extends State<ChatsScreen> {
   }
 
   Widget _allUserBody(context, FirebaseProvider data) {
-    List<UserDetails> users = data.getUsers;
-    return ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        itemCount: users.length,
-        itemBuilder: ((context, index) {
-          UserDetails userDetails = users[index];
-          return UserItem(
-            userDetails: userDetails,
-          );
-        }));
+    List<UserDetails> users = data.getUsers!;
+    return isSearch
+        ? UserSearchScreen(searchText: searchController.text)
+        : ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: users.length,
+            itemBuilder: ((context, index) {
+              UserDetails userDetails = users[index];
+              return UserItem(
+                userDetails: userDetails,
+              );
+            }));
   }
 
   AppBar _chatsAppBar(BuildContext context, FirebaseProvider data) {
@@ -84,6 +104,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             height: 40,
             child: TextField(
+              onChanged: _onSearchChanged,
               decoration: InputDecoration(
                 hintText: 'Search...',
                 hintStyle:

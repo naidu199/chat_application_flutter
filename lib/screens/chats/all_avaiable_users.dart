@@ -2,7 +2,10 @@ import 'package:chat_application/backend/provider/firebase_provider.dart';
 import 'package:chat_application/models/user.dart';
 import 'package:chat_application/utils/colors.dart';
 import 'package:chat_application/widgets/new_user_item.dart';
+import 'package:chat_application/widgets/search_users.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class AllAvailbleUsers extends StatefulWidget {
@@ -13,15 +16,32 @@ class AllAvailbleUsers extends StatefulWidget {
 }
 
 class _AllAvailbleUsersState extends State<AllAvailbleUsers> {
+  TextEditingController searchController = TextEditingController();
+  bool isSearch = false;
+  String searchText = '';
   @override
   void initState() {
-    super.initState();
     Provider.of<FirebaseProvider>(context, listen: false).getAllUserAvailable();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged(String query) {
+    setState(() {
+      searchText = query;
+      isSearch = query.isNotEmpty;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<FirebaseProvider>(builder: (context, value, _) {
+      print(value.isLoading);
       return Scaffold(
         backgroundColor: mobileBackgroundColor,
         appBar: AppBar(
@@ -36,6 +56,8 @@ class _AllAvailbleUsersState extends State<AllAvailbleUsers> {
           title: Container(
             height: 40,
             child: TextField(
+              onChanged: _onSearchChanged,
+              controller: searchController,
               decoration: InputDecoration(
                 hintText: 'Search...',
                 hintStyle:
@@ -59,7 +81,7 @@ class _AllAvailbleUsersState extends State<AllAvailbleUsers> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : value.getAvailableUsers.isEmpty
+            : value.getAvailableUsers == null
                 ? const Center(
                     child: Text("No users found."),
                   )
@@ -69,14 +91,18 @@ class _AllAvailbleUsersState extends State<AllAvailbleUsers> {
   }
 
   Widget _allUserBody(context, FirebaseProvider value) {
-    List<UserDetails> allUserDetails = value.getAvailableUsers;
-    return ListView.builder(
-        itemCount: allUserDetails.length,
-        itemBuilder: ((context, index) {
-          UserDetails userDetails = allUserDetails[index];
-          return NewUserItem(
-            userDetails: userDetails,
-          );
-        }));
+    List<UserDetails> allUserDetails = value.getAvailableUsers!;
+    return isSearch
+        ? UserSearchScreen(
+            searchText: searchController.text,
+          )
+        : ListView.builder(
+            itemCount: allUserDetails.length,
+            itemBuilder: ((context, index) {
+              UserDetails userDetails = allUserDetails[index];
+              return NewUserItem(
+                userDetails: userDetails,
+              );
+            }));
   }
 }

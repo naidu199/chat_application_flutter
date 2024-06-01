@@ -18,7 +18,8 @@ class UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserDetails user = Provider.of<FirebaseProvider>(context).getcurrentUser;
+    UserDetails user = Provider.of<FirebaseProvider>(context).getCurrentUser!;
+    // print("user item $user");
     return InkWell(
       child: ListTile(
         onTap: () async {
