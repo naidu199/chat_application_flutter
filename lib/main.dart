@@ -1,6 +1,5 @@
 import 'package:chat_application/backend/provider/firebase_provider.dart';
 import 'package:chat_application/firebase_options.dart';
-import 'package:chat_application/responsive/responsive.dart';
 import 'package:chat_application/routs/approuts.dart';
 import 'package:chat_application/screens/auth/loginscreen.dart';
 import 'package:chat_application/screens/chats_screen.dart';

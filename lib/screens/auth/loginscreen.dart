@@ -1,5 +1,4 @@
 import 'package:chat_application/backend/auth/auth_login.dart';
-import 'package:chat_application/responsive/responsive.dart';
 import 'package:chat_application/routs/approuts.dart';
 import 'package:chat_application/utils/colors.dart';
 import 'package:chat_application/utils/consts.dart';

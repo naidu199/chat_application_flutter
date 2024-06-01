@@ -3,9 +3,7 @@ import 'package:chat_application/models/user.dart';
 import 'package:chat_application/utils/colors.dart';
 import 'package:chat_application/widgets/new_user_item.dart';
 import 'package:chat_application/widgets/search_users.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class AllAvailbleUsers extends StatefulWidget {
@@ -53,7 +51,7 @@ class _AllAvailbleUsersState extends State<AllAvailbleUsers> {
             },
           ),
           backgroundColor: mobileBackgroundColor,
-          title: Container(
+          title: SizedBox(
             height: 40,
             child: TextField(
               onChanged: _onSearchChanged,

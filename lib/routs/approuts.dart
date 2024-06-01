@@ -2,7 +2,6 @@ import 'package:chat_application/screens/auth/loginscreen.dart';
 import 'package:chat_application/screens/auth/signupscreen.dart';
 import 'package:chat_application/screens/chats/all_avaiable_users.dart';
 import 'package:chat_application/screens/chats_screen.dart';
-import 'package:path/path.dart';
 // import 'package:path/path.dart';
 
 class AppRoutes {

@@ -5,7 +5,6 @@ import 'package:chat_application/screens/chats/user_chat_screen.dart';
 import 'package:chat_application/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class NewUserItem extends StatelessWidget {
   final UserDetails userDetails;
