@@ -49,7 +49,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           backgroundColor: mobileBackgroundColor,
           appBar: _chatsAppBar(context, data),
           floatingActionButton: FloatingActionButton(
-              backgroundColor: Color.fromARGB(255, 110, 245, 196),
+              backgroundColor: const Color.fromARGB(255, 110, 245, 196),
               onPressed: () {
                 Navigator.of(context)
                     .pushNamed(AppRoutes.allAvailableUsersRoute);
@@ -190,6 +190,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
                           onPressed: () async {
                             Navigator.of(context).pop();
                             await data.userSignOut();
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.loginRoute);
                           },
                         ),
                       ],

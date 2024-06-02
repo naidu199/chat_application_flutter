@@ -185,12 +185,13 @@ class _UserChatScreenState extends State<UserChatScreen> {
           }
           return DashChat(
             messageOptions: MessageOptions(
-              currentUserContainerColor: Color.fromARGB(255, 160, 243, 213),
+              currentUserContainerColor:
+                  const Color.fromARGB(255, 160, 243, 213),
               currentUserTextColor: primaryColor,
               showOtherUsersAvatar: true,
               showTime: true,
-              timePadding: EdgeInsets.only(top: 4),
-              containerColor: Color.fromARGB(255, 162, 218, 244),
+              timePadding: const EdgeInsets.only(top: 4),
+              containerColor: const Color.fromARGB(255, 162, 218, 244),
               messageTextBuilder: (ChatMessage message,
                   ChatMessage? previousMessage, ChatMessage? nextMessage) {
                 return Column(

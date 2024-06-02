@@ -1,11 +1,7 @@
 import 'package:chat_application/backend/provider/firebase_provider.dart';
 import 'package:chat_application/firebase_options.dart';
 import 'package:chat_application/routs/approuts.dart';
-import 'package:chat_application/screens/auth/loginscreen.dart';
-import 'package:chat_application/screens/chats_screen.dart';
 import 'package:chat_application/screens/onboarding_screen.dart';
-import 'package:chat_application/utils/toast.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +23,7 @@ class MyApp extends StatelessWidget {
       create: (_) => FirebaseProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Chat App',
+        title: 'Linkup',
         routes: AppRoutes.routes,
         theme: ThemeData(
           primarySwatch: Colors.blue,

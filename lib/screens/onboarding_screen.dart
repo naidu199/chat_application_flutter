@@ -1,5 +1,4 @@
 import 'package:chat_application/routs/approuts.dart';
-import 'package:chat_application/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

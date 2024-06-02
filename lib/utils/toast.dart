@@ -1,4 +1,3 @@
-import 'package:chat_application/utils/consts.dart';
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
@@ -10,7 +9,7 @@ toastMessage(BuildContext context, String message) {
   toastBar = DelightToastBar(
     position: DelightSnackbarPosition.top,
     autoDismiss: true,
-    builder: (context) => Container(
+    builder: (context) => SizedBox(
       // margin:
       //     EdgeInsets.symmetric(horizontal: width > webscreensize ? 200 : width),
       width: 400,
