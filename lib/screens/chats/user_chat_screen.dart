@@ -73,7 +73,6 @@ class _UserChatScreenState extends State<UserChatScreen> {
     List<ChatMessage> chatMsg = message.map((msg) {
       if (msg.messageType == MessageType.image) {
         return ChatMessage(
-          // text: msg.content,
           user: msg.senderId == widget.currentUser.uid
               ? currentChatUser!
               : otherChatUser!,
@@ -212,16 +211,6 @@ class _UserChatScreenState extends State<UserChatScreen> {
                   ],
                 );
               },
-              // messageTimeBuilder: (ChatMessage message, bool showTime) {
-              //   return Text(
-              //     DateFormat('hh:mm a').format(message.createdAt),
-              //     style: TextStyle(
-              //       fontSize:
-              //           10.0, // Set your desired font size for the time here
-              //       color: Colors.grey,
-              //     ),
-              //   );
-              // },
             ),
             inputOptions: InputOptions(
               // alwaysShowSend: true,

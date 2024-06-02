@@ -46,7 +46,7 @@ class OnBoardingScreen extends StatelessWidget {
                   Center(
                     child: SvgPicture.asset(
                       'assets/chats_onboard.svg',
-                      height: 460,
+                      height: 350,
                       width: 250,
                     ),
                   ),
