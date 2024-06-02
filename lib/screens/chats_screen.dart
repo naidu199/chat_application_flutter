@@ -92,7 +92,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
           const Text(
             "Select User",
             style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w500, color: primaryColor),
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: primaryColor,
+            ),
           ),
           const SizedBox(
             height: 15,
@@ -191,7 +194,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                             Navigator.of(context).pop();
                             await data.userSignOut();
                             Navigator.of(context)
-                                .pushNamed(AppRoutes.loginRoute);
+                                .pushNamed(AppRoutes.onBoardingRoute);
                           },
                         ),
                       ],
