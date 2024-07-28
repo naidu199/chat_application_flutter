@@ -6,6 +6,7 @@ Check out the app --> [https://lnkd.in/gXqx5fNJ](https://naidu199.github.io/link
  
 (Available on both web and Android; you can access the Android version by downloading the APK.)
 
+
 ## Features
 
 ✨ Real-time Messaging: Leveraging Firebase Firestore for instant, real-time chat between users, ensuring smooth and immediate communication.
