@@ -6,7 +6,6 @@ Check out the app --> [https://lnkd.in/gXqx5fNJ](https://naidu199.github.io/link
  
 (Available on both web and Android; you can access the Android version by downloading the APK.)
 
-
 ## Features
 
 ✨ Real-time Messaging: Leveraging Firebase Firestore for instant, real-time chat between users, ensuring smooth and immediate communication.
@@ -26,11 +25,9 @@ Check out the app --> [https://lnkd.in/gXqx5fNJ](https://naidu199.github.io/link
 <a href="https://firebase.google.com/" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/firebase.png" alt="Firebase" height="60" /></a>
 <a href="https://www.android.com/intl/en_in/" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/android-original-wordmark.svg" alt="Android" height="60" /></a> 
 
-
 </div>
 
 ## Demo
-
 
 ![Screenshot 2024-06-03 012630](https://github.com/naidu199/chat_application_flutter/assets/141550407/174cb320-26af-4343-a1b1-470713f401fd)
 
